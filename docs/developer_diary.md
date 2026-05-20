@@ -14,3 +14,7 @@ Traditional databases struggle with high-dimensional vector representations. By 
 
 For high concurrency, SQLAlchemy's async engine was configured with a base `pool_size` of 10 and a `max_overflow` of 20. A `pool_pre_ping=True` check was added to automatically recycle stale database connections and prevent connection dropouts.
 
+## Async Session Lifecycle Management
+
+We implemented a FastAPI dependency (`get_session`) that yields an async SQLAlchemy session. It ensures that every transaction is either successfully committed or rolled back automatically in case of errors, preventing open connection leaks.
+
