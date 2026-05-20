@@ -109,3 +109,7 @@ Users can request to forget a specific window of time (e.g. 'forget what I said 
 
 If a user says 'forget my preferences about food', the system embeds the query, retrieves matching memories, presents them for confirmation, and then soft-deletes the confirmed records.
 
+## LLM Integration: OpenAI Tools
+
+We wrote native JSON tool schemas for OpenAI function calling. These allow GPT-4 series models to automatically parse user intents into `memory_write`, `memory_retrieve`, or `memory_forget` tool calls.
+
