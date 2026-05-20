@@ -97,3 +97,7 @@ Since the decay job runs every 15 minutes, the database index on `decay_score` i
 
 To preserve historical integrity for auditability, the memory system never executes physical SQL `DELETE` statements. Forgetting a memory simply flags `is_deleted = true` and sets `deleted_at = now()`.
 
+## Immutable Audit Logs
+
+Every single write, version supersede, and soft-delete operation is logged to the `memory_audit_log` table. This provides a complete, tamper-proof history of memory lifecycle changes.
+
