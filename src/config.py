@@ -4,8 +4,8 @@ Bitemporal AI Memory System — Configuration.
 All settings are loaded from environment variables with sensible defaults.
 """
 
-from pydantic_settings import BaseSettings
 from pydantic import Field
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):

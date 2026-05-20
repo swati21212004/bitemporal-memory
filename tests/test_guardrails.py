@@ -6,12 +6,9 @@ Covers every individual check method as well as the composite
 
 from __future__ import annotations
 
-import time
-
 import pytest
 
 from src.guardrails.rules import GuardrailEngine, GuardrailResult
-
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 

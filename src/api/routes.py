@@ -24,11 +24,9 @@ from src.database import get_session
 from src.schemas.memory import (
     ContradictionResponse,
     ForgetByQueryRequest,
-    ForgetRequest,
     MemoryCreate,
     MemoryResponse,
     MemorySearchQuery,
-    TemporalQuery,
 )
 from src.services import memory_forget, memory_read, memory_write
 

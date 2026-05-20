@@ -10,7 +10,6 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-
 # ── Constants ────────────────────────────────────────────────────────────────
 
 MOCK_EMBEDDING_DIM = 1536
