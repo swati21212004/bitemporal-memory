@@ -41,3 +41,7 @@ Memory tags are represented as a PostgreSQL text array (`TEXT[]`). We created a 
 
 We built an abstract `EmbeddingService` interface. This allows developers to swap the default OpenAI provider for local alternatives (like Ollama or sentence-transformers) without changing a single line of business logic.
 
+## OpenAI Embedding Provider
+
+The default implementation utilizes `text-embedding-3-small` due to its high accuracy, compact size, and low token cost. It maps raw conversational text to a normalized 1536-dimensional floating point array.
+
