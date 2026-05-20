@@ -50,7 +50,7 @@ class GuardrailEngine:
     PII_PATTERNS: dict[str, str] = {
         "email": r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}",
         "ssn": r"\b\d{3}-\d{2}-\d{4}\b",
-        "phone": r"\b(?:\+?1[-.]?)?\(?\d{3}\)?[-.]?\d{3}[-.]?\d{4}\b",
+        "phone": r"(?:\+?1[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}",
         "credit_card": r"\b(?:\d{4}[-\s]?){3}\d{4}\b",
     }
 
