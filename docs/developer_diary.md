@@ -101,3 +101,7 @@ To preserve historical integrity for auditability, the memory system never execu
 
 Every single write, version supersede, and soft-delete operation is logged to the `memory_audit_log` table. This provides a complete, tamper-proof history of memory lifecycle changes.
 
+## Time-Range Deletion
+
+Users can request to forget a specific window of time (e.g. 'forget what I said yesterday'). The system targets memories where `valid_from` falls inside that range and soft-deletes them cleanly.
+
