@@ -71,3 +71,7 @@ Instead of purely returning the closest vector matches, we implement a hybrid re
 `Relevance = 0.6 * SemanticScore + 0.4 * DecayScore`.
 This ensures that highly relevant, fresh facts are surfaced over distant historical ones.
 
+## Access Tracking
+
+Every time a memory is returned during retrieval, the system records the access by incrementing `access_count` and setting `last_accessed_at = now()`. This temporarily boosts the memory's decay score back to its original importance.
+
