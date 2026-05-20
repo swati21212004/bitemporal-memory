@@ -129,3 +129,7 @@ We implemented rigorous regex matching to detect and quarantine sensitive inform
 
 Additional regex rules capture Visa/Mastercard configurations and complex phone numbers (handling international codes, dashes, and parenthesized area codes like `(555) 123-4567`).
 
+## Write Rate Limiting
+
+To prevent denial of service or loop-flooding, we built an in-memory sliding window rate limiter that restricts writes to a maximum of 100 per minute per user session.
+
