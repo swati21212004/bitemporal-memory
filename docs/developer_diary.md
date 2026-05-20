@@ -53,3 +53,7 @@ For bulk imports or large-scale document parsing, the embedding service supports
 
 To prevent the AI from accepting conflicting statements (e.g. 'I hate coffee' vs 'I love coffee'), the write path runs a cosine similarity scan. Similarity is calculated as the dot product of normalized embedding vectors.
 
+## Deduplication Rules
+
+If a new memory's cosine similarity to an active memory of the same type exceeds `0.95`, it is rejected as a duplicate. This saves storage space and prevents vector clutter.
+
