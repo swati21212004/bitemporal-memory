@@ -10,3 +10,7 @@ We evaluated multiple storage backends. While SQLite is lightweight for local te
 
 Traditional databases struggle with high-dimensional vector representations. By using `pgvector`, we can store OpenAI's 1536-dimensional embeddings directly in the `memories` table and execute similarity queries in native SQL, drastically reducing round-trip latency.
 
+## Connection Pooling Configurations
+
+For high concurrency, SQLAlchemy's async engine was configured with a base `pool_size` of 10 and a `max_overflow` of 20. A `pool_pre_ping=True` check was added to automatically recycle stale database connections and prevent connection dropouts.
+
