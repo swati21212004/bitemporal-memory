@@ -153,3 +153,7 @@ Memories with a calculated decay score below `0.05` are automatically flagged in
 
 The REST API is structured cleanly with separate routers. Main endpoints include `/memories`, `/memories/search`, `/memories/{id}/history`, and `/memories/system-prompt`.
 
+## System Prompt Injection Layout
+
+We built a formatter that serializes retrieved memories into a clean, markdown-friendly block. This is designed to be directly appended to the LLM system prompt context.
+
