@@ -65,3 +65,9 @@ When similarity is above `0.85` but meanings diverge, the system blocks the writ
 
 We designed highly validated Pydantic v2 schemas. They enforce strict validation rules on the incoming request (`MemoryCreate`) and format outbound responses (`MemoryResponse`) with clean datetime serializations.
 
+## Hybrid Retrieval scoring
+
+Instead of purely returning the closest vector matches, we implement a hybrid relevance score:
+`Relevance = 0.6 * SemanticScore + 0.4 * DecayScore`.
+This ensures that highly relevant, fresh facts are surfaced over distant historical ones.
+
