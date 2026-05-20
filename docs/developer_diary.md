@@ -18,3 +18,10 @@ For high concurrency, SQLAlchemy's async engine was configured with a base `pool
 
 We implemented a FastAPI dependency (`get_session`) that yields an async SQLAlchemy session. It ensures that every transaction is either successfully committed or rolled back automatically in case of errors, preventing open connection leaks.
 
+## Bitemporality Concept
+
+Bitemporal databases track two axes of time:
+1. **System Time** (`created_at` / `superseded_at`): The time the database recorded the statement.
+2. **Valid Time** (`valid_from` / `valid_to`): The time the fact was true in reality.
+This allows the assistant to reconstruct historical memory states at any point in time.
+
