@@ -125,3 +125,7 @@ We believe security should be enforced in compile-time/run-time code, not just p
 
 We implemented rigorous regex matching to detect and quarantine sensitive information like standard emails and US Social Security Numbers (`###-##-####`) before they enter the vector database.
 
+## PII Shield: Credit Cards and Phones
+
+Additional regex rules capture Visa/Mastercard configurations and complex phone numbers (handling international codes, dashes, and parenthesized area codes like `(555) 123-4567`).
+
