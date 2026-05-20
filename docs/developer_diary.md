@@ -6,3 +6,7 @@ Welcome to the development diary. This document tracks the design decisions, mat
 
 We evaluated multiple storage backends. While SQLite is lightweight for local testing, PostgreSQL 16 was selected as the core engine due to native `pgvector` support, mature connection pooling, and rich index types which are essential for high-performance vector search in production AI systems.
 
+## Vector Search with pgvector
+
+Traditional databases struggle with high-dimensional vector representations. By using `pgvector`, we can store OpenAI's 1536-dimensional embeddings directly in the `memories` table and execute similarity queries in native SQL, drastically reducing round-trip latency.
+
