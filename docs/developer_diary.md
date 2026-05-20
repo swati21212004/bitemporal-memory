@@ -149,3 +149,7 @@ All stored memories must explicitly declare their origin. Memories marked as `in
 
 Memories with a calculated decay score below `0.05` are automatically flagged in the retrieval payload, prompting the LLM agent to ask the user if the fact is still correct or needs updating.
 
+## FastAPI Routing Architecture
+
+The REST API is structured cleanly with separate routers. Main endpoints include `/memories`, `/memories/search`, `/memories/{id}/history`, and `/memories/system-prompt`.
+
