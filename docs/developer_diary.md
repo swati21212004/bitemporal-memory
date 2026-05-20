@@ -61,3 +61,7 @@ If a new memory's cosine similarity to an active memory of the same type exceeds
 
 When similarity is above `0.85` but meanings diverge, the system blocks the write and returns `409 Conflict`. The client must explicitly resolve it by either superseding the old memory or choosing to keep both.
 
+## Pydantic Schemas
+
+We designed highly validated Pydantic v2 schemas. They enforce strict validation rules on the incoming request (`MemoryCreate`) and format outbound responses (`MemoryResponse`) with clean datetime serializations.
+
