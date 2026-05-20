@@ -133,3 +133,7 @@ Additional regex rules capture Visa/Mastercard configurations and complex phone 
 
 To prevent denial of service or loop-flooding, we built an in-memory sliding window rate limiter that restricts writes to a maximum of 100 per minute per user session.
 
+## Memory Type Constraints
+
+We enforce that every memory falls strictly into one of three pre-defined categories: `episodic`, `semantic`, or `procedural`, rejecting arbitrary strings at the API layer.
+
