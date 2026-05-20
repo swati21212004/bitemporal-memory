@@ -64,11 +64,11 @@ The memory layer behaves like a deterministic middleware engine between your LLM
 ```mermaid
 sequenceDiagram
     autonumber
-    actor LLM as LLM Agent (Client)
-    participant API as FastAPI REST API
-    participant GR as Guardrails Engine
-    participant WS as Write Service
-    database DB as PostgreSQL + pgvector
+    actor LLM as "LLM Agent (Client)"
+    participant API as "FastAPI REST API"
+    participant GR as "Guardrails Engine"
+    participant WS as "Write Service"
+    database DB as "PostgreSQL + pgvector"
 
     LLM->>API: POST /memories (Write Fact)
     API->>GR: Run Guardrails Check (PII, Rate Limit, Dups)
