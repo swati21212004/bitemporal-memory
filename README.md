@@ -64,26 +64,26 @@ The memory layer behaves like a deterministic middleware engine between your LLM
 ```mermaid
 sequenceDiagram
     autonumber
-    actor LLM as "LLM Agent (Client)"
-    participant API as "FastAPI REST API"
-    participant GR as "Guardrails Engine"
-    participant WS as "Write Service"
-    database DB as "PostgreSQL + pgvector"
+    actor Agent
+    participant API
+    participant Guardrails
+    participant WriteService
+    participant PostgreSQL
 
-    LLM->>API: POST /memories (Write Fact)
-    API->>GR: Run Guardrails Check (PII, Rate Limit, Dups)
+    Agent->>API: POST /memories (Write Fact)
+    API->>Guardrails: Run Guardrails Check (PII, Rate Limit, Dups)
     alt [Validation Fails]
-        GR-->>LLM: Return 400 Bad Request
+        Guardrails-->>Agent: Return 400 Bad Request
     else [Passed Checks]
-        GR->>WS: Process Content & Embedding
-        WS->>DB: Check Cosine Similarity
+        Guardrails->>WriteService: Process Content & Embedding
+        WriteService->>PostgreSQL: Check Cosine Similarity
         alt [Cosine Sim > 0.95 (Exact Duplicate)]
-            DB-->>LLM: Return 409 Conflict (Duplicate Blocked)
+            PostgreSQL-->>Agent: Return 409 Conflict (Duplicate Blocked)
         else [Cosine Sim > 0.85 & Meaning Diverges (Contradiction)]
-            DB-->>LLM: Return 409 Conflict (Contradiction Alert)
+            PostgreSQL-->>Agent: Return 409 Conflict (Contradiction Alert)
         else [Safe Write]
-            WS->>DB: Write Memory + Insert Audit Trail
-            DB-->>LLM: Return 201 Created (MemoryResponse)
+            WriteService->>PostgreSQL: Write Memory + Insert Audit Trail
+            PostgreSQL-->>Agent: Return 201 Created (MemoryResponse)
         end
     end
 ```
