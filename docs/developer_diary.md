@@ -49,3 +49,7 @@ The default implementation utilizes `text-embedding-3-small` due to its high acc
 
 For bulk imports or large-scale document parsing, the embedding service supports batching multiple text payloads into a single HTTP API call to OpenAI, minimizing connection overhead.
 
+## Contradiction Math
+
+To prevent the AI from accepting conflicting statements (e.g. 'I hate coffee' vs 'I love coffee'), the write path runs a cosine similarity scan. Similarity is calculated as the dot product of normalized embedding vectors.
+
