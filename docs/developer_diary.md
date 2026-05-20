@@ -137,3 +137,7 @@ To prevent denial of service or loop-flooding, we built an in-memory sliding win
 
 We enforce that every memory falls strictly into one of three pre-defined categories: `episodic`, `semantic`, or `procedural`, rejecting arbitrary strings at the API layer.
 
+## Importance Validation
+
+Pydantic validators enforce that all memory importance scores are bounded strictly between `0.0` (trivial) and `1.0` (critical), preventing out-of-bounds math calculation errors.
+
