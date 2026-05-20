@@ -157,3 +157,7 @@ The REST API is structured cleanly with separate routers. Main endpoints include
 
 We built a formatter that serializes retrieved memories into a clean, markdown-friendly block. This is designed to be directly appended to the LLM system prompt context.
 
+## System Health Monitoring
+
+A simple `/health` endpoint executes a dummy SQL query (`SELECT 1`) to verify that the API server is healthy and the database connection pool is active.
+
