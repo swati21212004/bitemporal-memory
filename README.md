@@ -62,30 +62,36 @@ Enter choice (1-6):
 The memory layer behaves like a deterministic middleware engine between your LLM agent and your persistent pgvector storage.
 
 ```mermaid
-sequenceDiagram
-    autonumber
-    actor Agent
-    participant API
-    participant Guardrails
-    participant WriteService
-    participant PostgreSQL
+graph TD
+    %% Styling Definitions
+    classDef default fill:#0f111a,stroke:#1f2937,stroke-width:1px,color:#cbd5e1;
+    classDef primary fill:#1e1b4b,stroke:#4f46e5,stroke-width:2px,color:#e0e7ff;
+    classDef success fill:#064e3b,stroke:#059669,stroke-width:2px,color:#ecfdf5;
+    classDef danger fill:#7f1d1d,stroke:#dc2626,stroke-width:2px,color:#fef2f2;
+    classDef warning fill:#7c2d12,stroke:#ea580c,stroke-width:2px,color:#fff7ed;
 
-    Agent->>API: POST /memories (Write Fact)
-    API->>Guardrails: Run Guardrails Check (PII, Rate Limit, Dups)
-    alt [Validation Fails]
-        Guardrails-->>Agent: Return 400 Bad Request
-    else [Passed Checks]
-        Guardrails->>WriteService: Process Content & Embedding
-        WriteService->>PostgreSQL: Check Cosine Similarity
-        alt [Cosine Sim > 0.95 (Exact Duplicate)]
-            PostgreSQL-->>Agent: Return 409 Conflict (Duplicate Blocked)
-        else [Cosine Sim > 0.85 & Meaning Diverges (Contradiction)]
-            PostgreSQL-->>Agent: Return 409 Conflict (Contradiction Alert)
-        else [Safe Write]
-            WriteService->>PostgreSQL: Write Memory + Insert Audit Trail
-            PostgreSQL-->>Agent: Return 201 Created (MemoryResponse)
-        end
-    end
+    %% Nodes
+    AgentRequest["1. Agent Writes Fact (POST /memories)"]:::primary
+    GuardrailCheck{"2. Guardrails Check (PII, Rate Limit, Formats)"}:::primary
+    FailResponse["400 Bad Request (Validation Failed)"]:::danger
+    
+    ProcessEmbedding["3. Generate Text Embedding (OpenAI Model)"]:::primary
+    DBQuery{"4. Compare Cosine Similarity in PostgreSQL"}:::primary
+    
+    DuplicateBlock["409 Conflict (Duplicate Blocked: Similarity exceeds 0.95)"]:::danger
+    ContradictionBlock["409 Conflict (Contradiction Alert: Similarity exceeds 0.85)"]:::warning
+    SafeWrite["5. Write Memory and Insert Audit Trail"]:::success
+    SuccessResponse["201 Created Response (MemoryResponse)"]:::success
+
+    %% Connections
+    AgentRequest --> GuardrailCheck
+    GuardrailCheck -->|Validation Fails| FailResponse
+    GuardrailCheck -->|Passed Checks| ProcessEmbedding
+    ProcessEmbedding --> DBQuery
+    DBQuery -->|Similarity exceeds 0.95| DuplicateBlock
+    DBQuery -->|Similarity exceeds 0.85 and Meaning Diverges| ContradictionBlock
+    DBQuery -->|Safe Write| SafeWrite
+    SafeWrite --> SuccessResponse
 ```
 
 ---
