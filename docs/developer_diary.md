@@ -117,3 +117,7 @@ We wrote native JSON tool schemas for OpenAI function calling. These allow GPT-4
 
 In addition to OpenAI, we created full definitions compatible with Anthropic's tool_use parameter format, making this memory system fully multi-model capable.
 
+## Hardened Code Guardrails
+
+We believe security should be enforced in compile-time/run-time code, not just prompt instructions. All bounds, types, PII rules, and rate limits are hard-coded into our core guardrail middleware.
+
