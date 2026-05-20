@@ -113,3 +113,7 @@ If a user says 'forget my preferences about food', the system embeds the query, 
 
 We wrote native JSON tool schemas for OpenAI function calling. These allow GPT-4 series models to automatically parse user intents into `memory_write`, `memory_retrieve`, or `memory_forget` tool calls.
 
+## LLM Integration: Anthropic Tools
+
+In addition to OpenAI, we created full definitions compatible with Anthropic's tool_use parameter format, making this memory system fully multi-model capable.
+
