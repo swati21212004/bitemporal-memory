@@ -62,36 +62,33 @@ Enter choice (1-6):
 The memory layer behaves like a deterministic middleware engine between your LLM agent and your persistent pgvector storage.
 
 ```mermaid
-graph TD
-    %% Styling Definitions
-    classDef default fill:#0f111a,stroke:#1f2937,stroke-width:1px,color:#cbd5e1;
-    classDef primary fill:#1e1b4b,stroke:#4f46e5,stroke-width:2px,color:#e0e7ff;
-    classDef success fill:#064e3b,stroke:#059669,stroke-width:2px,color:#ecfdf5;
-    classDef danger fill:#7f1d1d,stroke:#dc2626,stroke-width:2px,color:#fef2f2;
-    classDef warning fill:#7c2d12,stroke:#ea580c,stroke-width:2px,color:#fff7ed;
+sequenceDiagram
+    autonumber
+    actor Agent as Agent / LLM
+    participant API as FastAPI API
+    participant Guard as Guardrails
+    participant Service as Write Service
+    participant DB as PostgreSQL (pgvector)
 
-    %% Nodes
-    AgentRequest["1. Agent Writes Fact (POST /memories)"]:::primary
-    GuardrailCheck{"2. Guardrails Check (PII, Rate Limit, Formats)"}:::primary
-    FailResponse["400 Bad Request (Validation Failed)"]:::danger
+    Agent->>API: POST /memories
+    API->>Guard: Validate (PII, Rate Limits)
     
-    ProcessEmbedding["3. Generate Text Embedding (OpenAI Model)"]:::primary
-    DBQuery{"4. Compare Cosine Similarity in PostgreSQL"}:::primary
+    alt Validation Fails
+        Guard-->>Agent: 400 Bad Request
+    end
     
-    DuplicateBlock["409 Conflict (Duplicate Blocked: Similarity exceeds 0.95)"]:::danger
-    ContradictionBlock["409 Conflict (Contradiction Alert: Similarity exceeds 0.85)"]:::warning
-    SafeWrite["5. Write Memory and Insert Audit Trail"]:::success
-    SuccessResponse["201 Created Response (MemoryResponse)"]:::success
-
-    %% Connections
-    AgentRequest --> GuardrailCheck
-    GuardrailCheck -->|Validation Fails| FailResponse
-    GuardrailCheck -->|Passed Checks| ProcessEmbedding
-    ProcessEmbedding --> DBQuery
-    DBQuery -->|Similarity exceeds 0.95| DuplicateBlock
-    DBQuery -->|Similarity exceeds 0.85 and Meaning Diverges| ContradictionBlock
-    DBQuery -->|Safe Write| SafeWrite
-    SafeWrite --> SuccessResponse
+    Note over Guard,Service: (If Validation Passes)
+    Guard->>Service: Process content & generate embedding
+    Service->>DB: Query cosine similarity
+    
+    alt Similarity exceeds 0.95
+        DB-->>Agent: 409 Conflict (Duplicate Blocked)
+    else Similarity exceeds 0.85 and meaning diverges
+        DB-->>Agent: 409 Conflict (Contradiction Alert)
+    else Safe Write
+        Service->>DB: Write Memory and Audit Trail
+        DB-->>Agent: 201 Created (MemoryResponse)
+    end
 ```
 
 ---
