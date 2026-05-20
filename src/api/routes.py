@@ -28,7 +28,7 @@ from src.schemas.memory import (
     MemoryResponse,
     MemorySearchQuery,
 )
-from src.services import memory_forget, memory_read, memory_write
+from src.services import compute_time_embedding, memory_forget, memory_read, memory_write
 
 logger = logging.getLogger(__name__)
 
@@ -204,6 +204,29 @@ async def resolve_contradiction(
         new_data=body.new_data,
         user_id=user_id,
     )
+
+
+# 6.5. GET /time-embedding — Compute sinusoidal time embedding
+@router.get(
+    "/time-embedding",
+    summary="Compute sinusoidal time embedding",
+    description="Compute a sinusoidal positional time embedding for an elapsed duration in seconds.",
+)
+async def get_time_embedding(
+    delta_seconds: float = Query(..., description="Elapsed duration in seconds"),
+    dimensions: int = Query(default=1536, ge=1, le=10000, description="Embedding dimensions"),
+) -> dict:
+    """Compute and return a sinusoidal time embedding vector."""
+    try:
+        embedding = compute_time_embedding(delta_seconds, dimensions)
+        return {
+            "delta_seconds": delta_seconds,
+            "dimensions": dimensions,
+            "embedding": embedding,
+        }
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc))
+
 
 
 # 7. GET /{memory_id} — Get a single memory

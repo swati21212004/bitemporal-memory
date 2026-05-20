@@ -16,6 +16,8 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 
 from src.api.routes import health_router, router
 from src.jobs.decay import start_decay_scheduler
@@ -82,3 +84,14 @@ app.add_middleware(
 # Register routers.
 app.include_router(health_router)
 app.include_router(router)
+
+# Mount static files and add dashboard redirect
+import os
+static_dir = os.path.join(os.path.dirname(__file__), "api", "static")
+os.makedirs(static_dir, exist_ok=True)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+@app.get("/dashboard", include_in_schema=False)
+async def dashboard_redirect():
+    return RedirectResponse(url="/static/dashboard.html")
+
