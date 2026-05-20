@@ -75,3 +75,7 @@ This ensures that highly relevant, fresh facts are surfaced over distant histori
 
 Every time a memory is returned during retrieval, the system records the access by incrementing `access_count` and setting `last_accessed_at = now()`. This temporarily boosts the memory's decay score back to its original importance.
 
+## Time Travel Queries
+
+We designed native SQL patterns to query the state of memory as it existed in the past. By querying with timestamps, the system can reconstruct the precise set of facts the AI believed at any historical point.
+
