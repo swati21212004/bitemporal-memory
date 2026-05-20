@@ -29,3 +29,7 @@ This allows the assistant to reconstruct historical memory states at any point i
 
 We chose Hierarchical Navigable Small World (HNSW) indexes over IVFFlat. HNSW provides faster query execution speeds and higher recall accuracy for 1536-dimensional vectors, without needing a training phase.
 
+## Database Index Optimizations
+
+We created a composite index on active memories: `(memory_type, decay_score DESC) WHERE is_deleted = false AND superseded_at IS NULL AND valid_to IS NULL`. This allows the API to serve typical retrieval paths in sub-millisecond times.
+
