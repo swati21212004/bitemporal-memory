@@ -45,3 +45,7 @@ We built an abstract `EmbeddingService` interface. This allows developers to swa
 
 The default implementation utilizes `text-embedding-3-small` due to its high accuracy, compact size, and low token cost. It maps raw conversational text to a normalized 1536-dimensional floating point array.
 
+## Batch Embedding Operations
+
+For bulk imports or large-scale document parsing, the embedding service supports batching multiple text payloads into a single HTTP API call to OpenAI, minimizing connection overhead.
+
