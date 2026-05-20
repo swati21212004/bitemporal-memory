@@ -25,3 +25,7 @@ Bitemporal databases track two axes of time:
 2. **Valid Time** (`valid_from` / `valid_to`): The time the fact was true in reality.
 This allows the assistant to reconstruct historical memory states at any point in time.
 
+## Vector Indexing: HNSW vs IVFFlat
+
+We chose Hierarchical Navigable Small World (HNSW) indexes over IVFFlat. HNSW provides faster query execution speeds and higher recall accuracy for 1536-dimensional vectors, without needing a training phase.
+
