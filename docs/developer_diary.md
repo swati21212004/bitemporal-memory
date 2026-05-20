@@ -93,3 +93,7 @@ To ensure scores stay fresh without bloating read paths, an in-process APSchedul
 
 Since the decay job runs every 15 minutes, the database index on `decay_score` is continuously updated. This ensures that the candidate pool for hybrid retrievals remains extremely accurate and indexed.
 
+## Soft-Delete Implementation
+
+To preserve historical integrity for auditability, the memory system never executes physical SQL `DELETE` statements. Forgetting a memory simply flags `is_deleted = true` and sets `deleted_at = now()`.
+
