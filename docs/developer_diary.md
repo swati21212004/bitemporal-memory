@@ -79,3 +79,9 @@ Every time a memory is returned during retrieval, the system records the access 
 
 We designed native SQL patterns to query the state of memory as it existed in the past. By querying with timestamps, the system can reconstruct the precise set of facts the AI believed at any historical point.
 
+## Logarithmic Decay Formula
+
+Memories fade according to the logarithmic formula:
+`decay_score = importance * (1.0 / (1.0 + ln(1.0 + age_in_days)))`.
+This models human cognitive retention, where details fade rapidly initially and then level off.
+
