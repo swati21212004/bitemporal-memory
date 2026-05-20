@@ -105,3 +105,7 @@ Every single write, version supersede, and soft-delete operation is logged to th
 
 Users can request to forget a specific window of time (e.g. 'forget what I said yesterday'). The system targets memories where `valid_from` falls inside that range and soft-deletes them cleanly.
 
+## Semantic Forget Operations
+
+If a user says 'forget my preferences about food', the system embeds the query, retrieves matching memories, presents them for confirmation, and then soft-deletes the confirmed records.
+
