@@ -37,3 +37,7 @@ We created a composite index on active memories: `(memory_type, decay_score DESC
 
 Memory tags are represented as a PostgreSQL text array (`TEXT[]`). We created a Generalized Inverted Index (GIN) on the tags column to allow sub-millisecond lookups for subset intersection queries (`tags @> :filter_tags`).
 
+## Embedding Abstraction
+
+We built an abstract `EmbeddingService` interface. This allows developers to swap the default OpenAI provider for local alternatives (like Ollama or sentence-transformers) without changing a single line of business logic.
+
