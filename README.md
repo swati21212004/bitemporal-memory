@@ -72,16 +72,16 @@ sequenceDiagram
 
     LLM->>API: POST /memories (Write Fact)
     API->>GR: Run Guardrails Check (PII, Rate Limit, Dups)
-    alt Validation Fails
+    alt [Validation Fails]
         GR-->>LLM: Return 400 Bad Request
-    else Passed Checks
+    else [Passed Checks]
         GR->>WS: Process Content & Embedding
         WS->>DB: Check Cosine Similarity
-        alt Cosine Sim > 0.95 (Exact Duplicate)
+        alt [Cosine Sim > 0.95 (Exact Duplicate)]
             DB-->>LLM: Return 409 Conflict (Duplicate Blocked)
-        else Cosine Sim > 0.85 & Meaning Diverges (Contradiction)
+        else [Cosine Sim > 0.85 & Meaning Diverges (Contradiction)]
             DB-->>LLM: Return 409 Conflict (Contradiction Alert)
-        else Safe Write
+        else [Safe Write]
             WS->>DB: Write Memory + Insert Audit Trail
             DB-->>LLM: Return 201 Created (MemoryResponse)
         end
@@ -171,6 +171,12 @@ pytest tests/ -v
 ```
 
 All tests are verified and fully operational under our GitHub Actions continuous integration pipeline.
+
+---
+
+## 👥 Author
+
+* **Swati Swarupa Behera** — [swati21212004](https://github.com/swati21212004)
 
 ---
 
