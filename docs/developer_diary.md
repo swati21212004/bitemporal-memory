@@ -121,3 +121,7 @@ In addition to OpenAI, we created full definitions compatible with Anthropic's t
 
 We believe security should be enforced in compile-time/run-time code, not just prompt instructions. All bounds, types, PII rules, and rate limits are hard-coded into our core guardrail middleware.
 
+## PII Shield: Email and SSN
+
+We implemented rigorous regex matching to detect and quarantine sensitive information like standard emails and US Social Security Numbers (`###-##-####`) before they enter the vector database.
+
