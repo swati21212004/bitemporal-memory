@@ -161,3 +161,7 @@ We built a formatter that serializes retrieved memories into a clean, markdown-f
 
 A simple `/health` endpoint executes a dummy SQL query (`SELECT 1`) to verify that the API server is healthy and the database connection pool is active.
 
+## High-Coverage Testing
+
+We built a robust test suite of 94 tests using `pytest` and `pytest-asyncio`, covering schema constraints, guardrail logic, decay curves, and temporal query responses.
+
