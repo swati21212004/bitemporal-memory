@@ -169,3 +169,7 @@ We built a robust test suite of 94 tests using `pytest` and `pytest-asyncio`, co
 
 To ensure tests run fast and securely without requiring an internet connection or incurring OpenAI token costs, `conftest.py` patches the embedding layer with deterministic mock arrays.
 
+## Continuous Integration Pipeline
+
+We configured a GitHub Actions CI workflow (`.github/workflows/ci.yml`) that builds the project, runs linting rules, and executes the entire 94-test suite on every single commit.
+
