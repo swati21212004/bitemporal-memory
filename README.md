@@ -177,6 +177,7 @@ All tests are verified and fully operational under our GitHub Actions continuous
 ## 👥 Author
 
 * **Swati Swarupa Behera** — [swati21212004](https://github.com/swati21212004)
+* mail: swatiswarupa50@gmail.com
 
 ---
 
