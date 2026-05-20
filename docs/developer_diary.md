@@ -141,3 +141,7 @@ We enforce that every memory falls strictly into one of three pre-defined catego
 
 Pydantic validators enforce that all memory importance scores are bounded strictly between `0.0` (trivial) and `1.0` (critical), preventing out-of-bounds math calculation errors.
 
+## Source Provenance tracking
+
+All stored memories must explicitly declare their origin. Memories marked as `inferred` by the LLM are automatically assigned lower default importance than those explicitly stated by the user.
+
