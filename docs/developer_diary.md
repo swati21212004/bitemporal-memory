@@ -89,3 +89,7 @@ This models human cognitive retention, where details fade rapidly initially and 
 
 To ensure scores stay fresh without bloating read paths, an in-process APScheduler background job executes a bulk update query in PostgreSQL every 15 minutes, recalculating scores based on passage of time.
 
+## Keeping Indexes Fresh
+
+Since the decay job runs every 15 minutes, the database index on `decay_score` is continuously updated. This ensures that the candidate pool for hybrid retrievals remains extremely accurate and indexed.
+
