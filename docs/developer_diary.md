@@ -145,3 +145,7 @@ Pydantic validators enforce that all memory importance scores are bounded strict
 
 All stored memories must explicitly declare their origin. Memories marked as `inferred` by the LLM are automatically assigned lower default importance than those explicitly stated by the user.
 
+## Flagging Stale Memories
+
+Memories with a calculated decay score below `0.05` are automatically flagged in the retrieval payload, prompting the LLM agent to ask the user if the fact is still correct or needs updating.
+
