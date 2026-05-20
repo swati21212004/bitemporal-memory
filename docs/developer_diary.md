@@ -57,3 +57,7 @@ To prevent the AI from accepting conflicting statements (e.g. 'I hate coffee' vs
 
 If a new memory's cosine similarity to an active memory of the same type exceeds `0.95`, it is rejected as a duplicate. This saves storage space and prevents vector clutter.
 
+## Manual Contradiction Resolution
+
+When similarity is above `0.85` but meanings diverge, the system blocks the write and returns `409 Conflict`. The client must explicitly resolve it by either superseding the old memory or choosing to keep both.
+
