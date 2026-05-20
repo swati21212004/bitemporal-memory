@@ -85,3 +85,7 @@ Memories fade according to the logarithmic formula:
 `decay_score = importance * (1.0 / (1.0 + ln(1.0 + age_in_days)))`.
 This models human cognitive retention, where details fade rapidly initially and then level off.
 
+## Background Scheduler
+
+To ensure scores stay fresh without bloating read paths, an in-process APScheduler background job executes a bulk update query in PostgreSQL every 15 minutes, recalculating scores based on passage of time.
+
